@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 *{
     margin: 0%;
     padding: 0%;
@@ -1154,3 +1154,181 @@ body{
 /* end of css by jitu  */
 
 
+
+
+/*Price Card Css */
+ *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+.price-heading {
+    text-align: center;
+    font-size: 3rem;
+    margin: 1rem 0;
+    color: #20947d;
+}
+
+.pricing-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.pricing-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5rem 2rem 5rem;
+    background-color: #0cc97a;
+    margin: 0 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .2s all linear;
+    margin-bottom: 2rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.pricing-item:hover {
+    transform: scale(1.01);
+    box-shadow: 0 1rem 1rem 0rem #138a09c7;
+}
+
+.pricing-item li {
+    list-style: none;
+}
+
+.pricing {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    color: rgb(3, 22, 29);
+    font-weight: bold;
+}
+
+.pricing-kit {
+    font-size: 1.3rem;
+    background-color: skyblue;
+    padding: .7rem 1.5rem;
+    border-radius: 0 0 2rem 2rem;
+}
+
+.pricing-item:hover .pricing-kit {
+    box-shadow: 0 0 0 50rem #f4faf7;
+}
+
+.pricing-item:hover .order-btn {
+    background-color: #49eb5f67;
+    color: rgb(10, 177, 107);
+    font-weight: bold;
+    border-color: white;
+    border-width: medium;
+}
+
+.pricing-item:hover .pricing {
+    color: black;
+    transition: .4s linear;
+}
+
+.offers li {
+    color: black;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.order-btn {
+    border: none;
+    border: 2px solid rgb(246, 247, 248);
+    background-color: skyblue;
+    color: black;
+    cursor: pointer;
+    margin-top: 2rem;
+    padding: .7rem 1rem;
+    border-radius: 4rem;
+    font-weight: var(--theme-l);
+}
+
+.order-btn:hover {
+    background-color: skyblue;
+    color: white;
+    font-weight: bold;
+    border-color: white;
+}
+
+
+/* otp page css */
+/* .otp {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    align-items: center;
+  }
+  .verifyDiv {
+    padding: 18px;
+    background-color: #202020;
+    margin-top: 5pt;
+  }
+  p {
+    color: white;
+    margin-bottom: 0px;
+  }
+  .inputStyle {
+    width: 50% !important;
+    height: 45px;
+    border-radius: 7px;
+    border: 0px;
+    margin-left: 8px;
+    margin-right: 8px;
+    background: #dddddd;
+    font-size: 20px;
+  }
+  .p3 {
+    font-size: 14px;
+    
+  }
+  .resend {
+    text-decoration: underline;
+    font-size: 14px;
+  }
+  .otpElements {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding-left: 18px;
+    justify-content: center;
+  }
+  
+  .p1 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    margin-top: 25px;
+    font-size: 27px;
+    margin-left: 45%;
+  }
+  
+  .p2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    margin-left: 35%;
+  }
+  button {
+    color: rgba(0, 67, 44, 0.83);
+    font-size: 20px;
+    font-weight: 600;
+    width: 190px;
+    height: 53px;
+    border: 0px;
+    background: #dddddd;
+    box-shadow: 0px -4px 36px 9px rgb(0 0 0 / 30%);
+    border-radius: 32px;
+    cursor: pointer;
+    margin-left: 45%;
+  }
+   */

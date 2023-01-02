@@ -12,6 +12,9 @@ import AddBank from "views/examples/AddBank";
 import ChequeCollection from "views/examples/slip/ChequeCollection";
 import ChequeDepositSlip from "views/examples/slip/ChequeSlip/ChequeDepositSlip";
 import CashDepositSlip from "views/examples/slip/Cashslip/CashDepositSlip";
+import PriceCard from "components/PriceCard.js";
+import Verfication from "views/Verfication";
+import { useParams} from "react-router-dom";
 
 
 var routes = [
@@ -93,6 +96,22 @@ var routes = [
     name: "Register",
     icon: "ni ni-circle-08",
     component: Register,
+    layout: "/auth",
+  },
+
+  {
+    path: "/pricecard",
+    name: "PriceCard",
+    icon: "ni ni-circle-08",
+    component: PriceCard,
+    layout: "/auth",
+  },
+
+  {
+    path: "/verification",
+    name: "Verification",
+    icon: "ni ni-circle-08",
+    component: Verfication,
     layout: "/auth",
   },
  

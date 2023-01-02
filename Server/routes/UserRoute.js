@@ -4,8 +4,12 @@ const router = express.Router();
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import auth from "../routes/Auth.js";
+import  Token  from "../models/Token.js";
+import crypto from "crypto"
+import  sendEmail from "../SendEmail.js";
 
 router.post("/register", async (req, res) => {
+  const val = Math.floor(1000 + Math.random() * 9000);
   const { username, email, password, mobile } = req.body;
   console.log(username);
 
@@ -23,7 +27,24 @@ router.post("/register", async (req, res) => {
     });
 
     const dataRegister = await data.save();
-    res.status(201).json({ message: "Data added", status: true });
+    console.log("me hu result",dataRegister)
+    if (!dataRegister.verified) {
+			let token = await Token.findOne({ userId: dataRegister._id });
+			if (!token) {
+        
+				token = await new Token({
+					userId: dataRegister._id,
+					token: val,
+				}).save();
+				
+				await sendEmail(dataRegister.email, "E-mail Verification", val);
+			}
+
+			return res
+				.status(400)
+				.send({ message: "An Email sent to your account please verify" , status:true ,data:dataRegister, token:token});
+		}
+   
   } catch (err) {
     console.log(err);
   }
@@ -84,14 +105,25 @@ router.post("/login", function (req, res, next) {
     });
 });
 
-router.get("/get", auth, async (req, res) => {
-  // const userDatas = await UserData.find();
-  // res.status(200).json({
-  // success: true,
-  // userDatas,
-  // });
-  console.log("kkkk", req.userId);
-  res.json({ status: true });
+router.post("/verify", async (req, res) => {
+	try {
+		const user = await UserData.findOne({ _id: req.body.id});
+    console.log(user)
+		if (!user) return res.status(400).send({ message: "Invalid link" });
+
+		const token = await Token.findOne({
+			userId: req.body.id,
+			token: req.body.passcode,
+		});
+		if (!token) return res.status(400).send({ message: "Invalid link" });
+
+		await UserData.updateOne({ _id: req.body.id, verified: true });
+		await token.remove();
+
+		res.status(200).send({ message: "Email verified successfully" });
+	} catch (error) {
+		res.status(500).send({ message: "Internal Server Error" });
+	}
 });
 
 export default router;

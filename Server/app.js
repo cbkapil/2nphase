@@ -1,16 +1,22 @@
 import express from "express";
 const app = express();
 import mongoose from "mongoose";
-import corsHeaders from "./middleware/cors.js";
+ import corsHeaders from "./middleware/cors.js";
+import cors from 'cors'
+const PORT = process.env.PORT || 8000
 const CONNECTION_STRING =
   process.env.CONNECTION_STRING ||
   "mongodb+srv://Shanky:1234@expensedetails.ib4xj.mongodb.net/CheckMaker?retryWrites=true&w=majority";
 import bodyParser from "body-parser";
 
-app.options('*',corsHeaders);
-app.use(corsHeaders);
+ app.options('*',corsHeaders);
+ app.use(corsHeaders);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+  app.use(cors({
+   origin: '*',  // Allow requests from any domain
+    optionsSuccessStatus: 200
+  }));
 
 //middleware
 app.use(express.json());
@@ -24,7 +30,7 @@ import UserBankRouter from "./routes/UserBankRouter.js";
 import GetFirm from "./routes/GetFirm.js";
 import BankLinking from "./routes/BankLinking.js";
 import findbyid from "./routes/findbyid.js";
-import Getfirmslip from "./routes/GetfirmSlip.js";
+// import Getfirmslip from "./routes/GetfirmSlip.js";
 import getbankslip from "./routes/GetBankSlip.js";
 import GetBranches from "./routes/GetBranches.js";
 import GetAccount from "./routes/GetAccount.js";
@@ -50,14 +56,14 @@ import UpdateChequeSlips from './routes/UpdateChequeSlip.js';
 import ChequeCollection from './routes/Cheques/ChequeCollection.js';
 import SearchByDateCheque from './routes/Cheques/SearchbyDateCheque.js';
 import Customerdata from './routes/customer/CustomerData.js'
-import CreateCustomerBank from './routes/customer/CreateCustomerBank.js'
+// import CreateCustomerBank from './routes/customer/CreateCustomerBank.js'
 import GetCustomerBank from './routes/customer/GetCustomerBank.js'
 import DocketData from './routes/Dockets/DocketData.js'
 import GetDocno from './routes/Dockets/GetDocno.js'
 import RechequePrint from "./routes/Cheques/ChequeReprint.js";
 import RecashPrint from "./routes/Cash/CashReprint.js"
-import DeleteCustomer from "../Server/routes/customer/DeleteCustomer.js"
-import UpdateCustomer from "../Server/routes/customer/UpdateCustomer.js"
+import DeleteCustomer from "./routes/customer/DeleteCustomer.js"
+import UpdateCustomer from "./routes/customer/UpdateCustomer.js"
 
 
 // User routes path
@@ -74,7 +80,7 @@ app.use(UserBankRouter);
 app.use(GetFirm);
 app.use(BankLinking);
 app.use(findbyid);
-app.use(Getfirmslip);
+// app.use(Getfirmslip);
 app.use(getbankslip);
 app.use(GetBranches);
 app.use(GetAccount);
@@ -100,7 +106,7 @@ app.use(UpdateChequeSlips);
 app.use(ChequeCollection);
 app.use(SearchByDateCheque);
 app.use(Customerdata);
-app.use(CreateCustomerBank);
+// app.use(CreateCustomerBank);
 app.use(GetCustomerBank);
 app.use(CreateChequeSlip)
 app.use(DocketData)
@@ -124,6 +130,6 @@ mongoose
   });
 
 //Server Port Running
-app.listen(8000, () => {
-  console.log("server is running http://localhost:8000");
+app.listen(PORT, () => {
+  console.log(`server is running http://localhost:${PORT}`);
 });

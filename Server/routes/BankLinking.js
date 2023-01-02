@@ -57,10 +57,11 @@ var  firmid2=firmid
                          
                         }
                     )};
-                    res.json({status:true})
+                    
           })
         })
       });
+      res.json({status:true})
       
      
       

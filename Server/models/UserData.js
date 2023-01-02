@@ -1,66 +1,68 @@
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
-import mongoose from 'mongoose'
-import bcrypt from 'bcryptjs'
-
-
-const userDataSchema = new mongoose.Schema({
+const userDataSchema = new mongoose.Schema(
+  {
     username: {
-        type: String,
+      type: String,
     },
 
     email: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
 
     password: {
-        type: String,
-        
+      type: String,
     },
 
     mobile: {
-        type: Number,
-        
+      type: Number,
     },
-    
+
     isAdmin: {
-        type : Boolean,
-        default : false,
+      type: Boolean,
+      default: false,
     },
 
-    firmid : [{
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'firmData',
-    }],
+    
+    verified: {
+        type: Boolean,
+        default: false,
+      },
 
-  
+    firmid: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "firmData",
+      },
+    ],
+    slips: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "userslip",
+      },
+    ],
+    partyLink: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "paryData",
+      },
+    ],
+    chequeslips: [{ type: mongoose.Schema.Types.ObjectId, ref: "chequeslips" }],
+  },
+  {
+    timestamp: true,
+  }
+);
 
-    slips:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'userslip'
-    }],
-    partyLink:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'paryData'
-    }],
-    chequeslips:[{type:mongoose.Schema.Types.ObjectId,
-        ref:'chequeslips'
-
-    }]
-},
-{
-    timestamp: true
+userDataSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
+  next();
 });
-
-userDataSchema.pre('save', async function(next){
-    if(this.isModified('password')){
-        const salt = await bcrypt.genSalt(10)
-        this.password = await bcrypt.hash(this.password, salt)
-        
-        
-    }
-    next();
-})
 
 // // Verify The Password
 // userDataSchema.methods.isPasswordMatch = async function (enteredPassword){
